@@ -1,0 +1,36 @@
+
+    module dflip_pos( input clk,
+    input d,
+    output q
+);
+    always @(posedge clk)
+        q=d;
+endmodule
+    
+        module dflip_neg( input clk,
+    input d,
+    output q
+);
+    always @(negedge clk)
+        q=d;
+endmodule
+
+module top_module (
+    input clk,
+    input d,
+    output q
+);
+    reg t,y;
+    
+    dflip_pos instance1(clk, d, t);
+    dflip_neg instance2(clk, d, y);
+   
+    always @(*)
+        begin
+    case (clk)
+     1:   q=t;
+
+     0:   q=y;
+         endcase
+        end
+endmodule
